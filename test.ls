@@ -1,7 +1,7 @@
 {transformAst} = require './index'
 {parse, print} = require 'recast'
-{spy, assert} = require 'sinon'
-assert = require('assert') <<< assert
+{spy} = require 'sinon'
+assert = require('assert')
 
 toAst = (source) -> parse(source).program
 toSource = (ast) -> print(ast).code
