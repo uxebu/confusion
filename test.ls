@@ -7,6 +7,8 @@ toAst = (source) -> parse(source).program
 toSource = (ast) -> print(ast).code
 
 describe 'AST transformation:' ->
+  # Needs to be on the test object, since mocha-given tries to eval().call(this)
+  # when tests fail. `toSource` is not in scope in these cases
   Given -> @toSource = toSource
 
   describe 'passes an array of all encountered variable names to the `createName` callback:' ->
