@@ -1,0 +1,37 @@
+{
+  "name": "confusion",
+  "version": "0.1.0",
+  "description": "Simple obfuscator for JavaScript source code",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -u mocha-given --reporter dot --compilers ls:LiveScript test.ls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uxebu/confusion"
+  },
+  "keywords": [
+    "obfuscator",
+    "obfuscation"
+  ],
+  "author": "uxebu (http://uxebu.com)",
+  "contributors": [
+    "David Aurelio <da@uxebu.com>"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uxebu/confusion/issues"
+  },
+  "homepage": "https://github.com/uxebu/confusion",
+  "devDependencies": {
+    "LiveScript": "^1.3.1",
+    "mocha": "^2.2.1",
+    "mocha-given": "^0.1.3",
+    "sinon": "^1.13.0"
+  },
+  "dependencies": {
+    "ast-types": "^0.7.0",
+    "estraverse": "^2.0.0",
+    "recast": "^0.10.7"
+  }
+}
