@@ -53,9 +53,15 @@ describe 'AST transformation:', ->
 
     describe 'Places the string map at the begin (no IIFE) if any variable declarations exist at the top level:', ->
       Given -> @source = 'while (true) { var foo = 1; }';
-      Given -> @expectedStart = "var #{@varName} = [];"
+      Given -> @expected = "var #{@varName} = [];\n#{@source}"
       When  -> @obfuscated = transformAst(toAst(@source), @createName)
-      Then  -> @toSource(@obfuscated).slice(0, @expectedStart.length) == @expectedStart
+      Then  -> @toSource(@obfuscated) == @expected
+
+    describe 'Places the string map at the begin (no IIFE) if any function declarations exist at the top level:', ->
+      Given -> @source = 'function one() { return 1; }';
+      Given -> @expected = "var #{@varName} = [];\n#{@source}"
+      When  -> @obfuscated = transformAst(toAst(@source), @createName)
+      Then  -> @toSource(@obfuscated) == @expected
 
   describe 'replacement of strings:', ->
     Given -> @source = '''call(['a string', true, false, null, 1.2, -3, 'another string']);'''

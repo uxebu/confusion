@@ -53,7 +53,7 @@ exports.transformAst = function(ast, createVariableName) {
   replace(ast, {
     enter: function(node, parent) {
       var index;
-      if (node.type === 'VariableDeclaration') {
+      if (node.type === 'VariableDeclaration' || node.type === 'FunctionDeclaration') {
         if (!exposesVariables) {
           exposesVariables = !this.parents().some(isFunction);
         }
