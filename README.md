@@ -3,8 +3,8 @@
 Sometimes, we need that little bit of “security by obscurity” and want to 
 obfuscate our source code.
 
-Confusion makes it harder to decipher your code by replacing string literals and 
-property accessess with lookups into a string map.
+**confusion** makes it harder to decipher your code by replacing string literals 
+and property accesses with lookups into a string map.
 
 ## Example
 
@@ -35,7 +35,7 @@ Pipe it through closure compiler and you’ll get:
 
 ```
 
-If your code exposes any variables, it won’t be wrapped in a 
+If your code declares any top level variables, it won’t be wrapped in a 
 <abbr title="immediately invoced function expression">IIFE</abbr>. The string 
 map will simply be prepended, in order to maintain program semantics:
 
@@ -71,8 +71,8 @@ The `confusion` module exposes two functions:
 
 `transformAst` takes a program AST node 
 (`{type: 'Program', body: [/* nodes...*/]}`) and a callback function to produce 
-the variable name of the string name. That callback takes an array of names and
-returns the variable name to be used for the string map.
+the variable name of the string map. That callback takes an array of existing 
+variabke names and should return an unused variable name.
 
 `createVariableName` is a default implementation of the callback needed by 
 `transformAst`.
