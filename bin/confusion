@@ -1,0 +1,13 @@
+#! /usr/bin/env node
+var concat = require('concat-stream');
+var recast = require('recast');
+var confusion = require('..');
+
+var input = process.stdin, output = process.stdout;
+
+input.pipe(concat({encoding: 'string'}, function(source) {
+  var parsed = recast.parse(source);
+  confusion.transformAst(parsed.program, confusion.createVariableName);
+  output.write(recast.print(parsed).code);
+  output.write('\n');
+}));

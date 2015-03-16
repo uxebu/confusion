@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Simple obfuscator for JavaScript source code",
   "main": "index.js",
+  "bin": "bin/confusion",
   "scripts": {
+    "prepublish": "npm test",
     "test": "mocha -u mocha-given --reporter dot --compilers ls:coffee-script/register test.coffee"
   },
   "repository": {
@@ -31,6 +33,7 @@
   },
   "dependencies": {
     "ast-types": "^0.7.0",
+    "concat-stream": "^1.4.7",
     "estraverse": "^2.0.0",
     "recast": "^0.10.7"
   }
