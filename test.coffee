@@ -97,6 +97,25 @@ describe 'AST transformation:', ->
     When  -> @obfuscated = transformAst(toAst(@source), @createName)
     Then  -> @toSource(@obfuscated) == @expected
 
+  describe 'leaves "use strict" string literals intact:', ->
+    Given -> @source =  '"use strict";\n  call({"a string": 123});'
+    Given -> @expected = """
+      (function(#{@varName}) {
+        #{@source}
+      }).call(this, []);
+      """
+    When  -> @obfuscated = transformAst(toAst(@source), @createName)
+    Then  -> @toSource(@obfuscated) == @expected
+
+  describe 'does not place the string map before a leading "use strict":', ->
+    Given -> @source = '"use strict"; var a;'
+    Given -> @expected = """
+      "use strict";
+      var #{@varName} = [];
+      var a;
+      """
+    When  -> @obfuscated = transformAst(toAst(@source), @createName)
+    Then  -> @toSource(@obfuscated) == @expected
 
 describe 'variable name creator:', ->
   describe 'it creates a variable name that maches /^_x\\d+$/:', ->

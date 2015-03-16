@@ -30,6 +30,12 @@ function isPropertyKey(node, parent) {
   return parent.type === 'Property' && parent.key === node;
 }
 
+function isStrictStatement(statement) {
+  return statement.type === 'ExpressionStatement' &&
+         statement.expression.type === 'Literal' &&
+         statement.expression.value === 'use strict';
+}
+
 exports.transformAst = function(ast, createVariableName) {
   var usedVariables = {};
   var exposesVariables = false;
@@ -53,7 +59,7 @@ exports.transformAst = function(ast, createVariableName) {
         }
       } else if (node.type === 'Identifier') {
         usedVariables[node.name] = true;
-      } else if (isStringLiteral(node) && !isPropertyKey(node, parent)) {
+      } else if (isStringLiteral(node) && !isPropertyKey(node, parent) && node.value !== 'use strict') {
         index = addString(node.value);
         return memberExpression(stringMapIdentifier, literal(index), true);
       } else if (isPropertyAccess(node)) {
@@ -82,11 +88,13 @@ function wrapWithIife(body, stringMapName, stringMap) {
 }
 
 function prependMap(body, stringMapName, stringMap) {
-  return [
+  var insertIndex = isStrictStatement(body[0]) ? 1 : 0;
+  body.splice(insertIndex, 0,
     variableDeclaration('var', [
       variableDeclarator(stringMapName, stringMap)
     ])
-  ].concat(body);
+  );
+  return body;
 }
 
 exports.createVariableName = function(variableNames) {
