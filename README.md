@@ -8,6 +8,8 @@ property accessess with lookups into a string map.
 
 ## Example
 
+This code snippet:
+
 ```js
 a.property(called.with('a string literal'));
 an.other("call", "is", "here");
@@ -28,8 +30,26 @@ will be converted to
 Pipe it through closure compiler and you’ll get:
 
 ```js
-(function(b){a[b[0]](called[b[1]](b[2]));an[b[3]](b[4],b[5],b[6])}).call(this,"property;with;a string literal;other;call;is;here".split(";"));
+(function(b){a[b[0]](called[b[1]](b[2]));an[b[3]](b[4],b[5],b[6])}).call(
+  this,"property;with;a string literal;other;call;is;here".split(";"));
 
+```
+
+If your code exposes any variables, it won’t be wrapped in a 
+<abbr title="immediately invoced function expression">IIFE</abbr>. The string 
+map will simply be prepended, in order to maintain program semantics:
+
+```js
+'use strict';
+var name = 'A name here';
+```
+
+becomes:
+
+```js
+'use strict';
+var _x44736 = ["A name here"];
+var name = _x44736[0];
 ```
 
 ## Usage: command line
