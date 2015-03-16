@@ -1,6 +1,6 @@
 # confusion
 
-Sometimes, we need that little bit of “security by obscurity” and want to 
+Sometimes, we need that little bit of “security through obscurity” and want to 
 obfuscate our source code.
 
 **confusion** makes it harder to decipher your code by replacing string literals 
