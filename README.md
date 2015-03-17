@@ -71,8 +71,8 @@ The `confusion` module exposes two functions:
 
 `transformAst` takes a program AST node 
 (`{type: 'Program', body: [/* nodes...*/]}`) and a callback function to produce 
-the variable name of the string map. That callback takes an array of existing 
-variabke names and should return an unused variable name.
+the variable name of the string map. The callback takes an array of existing 
+variable names and should return an unused name.
 
 `createVariableName` is a default implementation of the callback needed by 
 `transformAst`.
